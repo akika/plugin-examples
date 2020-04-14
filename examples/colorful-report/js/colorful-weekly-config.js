@@ -8,6 +8,59 @@ jQuery.noConflict();
 (function($, PLUGIN_ID) {
     'use strict';
     $(document).ready(function() {
+        var terms = {
+            'ja': {
+                'view_title': '色をつける一覧の名前',
+                'view_settingButton':'一覧設定ボタン',
+                'view_table': '一覧の項目設定(初期設定)',
+                'view_note': '初期設定が未完了です。一覧の名前を入力後一覧設定ボタンを押して初期設定を完了してください。',
+                'meeting_day': '定例MTG開催曜日',
+                'meeting_day_indefinite': '不定',
+                'meeting_day_monday': '毎週月曜日',
+                'meeting_day_tuesday': '毎週火曜日',
+                'meeting_day_wednesday': '毎週水曜日',
+                'meeting_day_thursday': '毎週木曜日',
+                'meeting_day_friday': '毎週金曜日',
+                'report_title': '週報のタイトル用フィールドを選んでください',
+                'report_title_note': '※文字列(1行)フィールドのみ対象です',
+                'meeting_day_field': '開催日用フィールドを選んでください',
+                'meeting_day_field_note': '※日付フィールドのみ対象です',
+                'colorSetting_title': 'ハイライトする行に含める文字とハイライト色を指定してください',
+                'colorSetting_text' : '文字列',
+                'colorSetting_color': '色',
+                'save_button': '保存する',
+                'cancel_button': 'キャンセル'
+
+            },
+            'zh': {
+                'view_title': '要设置颜色的列表',
+                'view_settingButton':'设置列表',
+                'view_table': '设置列表各项(初始设置)',
+                'view_note': '初始设置未完成，请输入列表名称并点击右边的设置按钮。',
+                'meeting_day': '定理会的开会日期',
+                'meeting_day_indefinite': '不确定',
+                'meeting_dayvmonday': '每周一',
+                'meeting_day_tuesday': '每周二',
+                'meeting_day_wednesday': '每周三',
+                'meeting_day_thursday': '每周四',
+                'meeting_day_friday': '每周五',
+                'report_title': '请选择要作为周报标题的字段',
+                'report_title_note': '※仅可选择单行文本框',
+                'meeting_day_field': '请选择开会日期字段',
+                'meeting_day_field_note': '※仅可选择日期字段',
+                'colorSetting_title': '请输入标识字符。含有该字符的行将高亮显示。并请在右边输入要显示的颜色',
+                'colorSetting_text' : '标识字符',
+                'colorSetting_color': '颜色',
+                'save_button': '保存',
+                'cancel_button': '取消'
+            }
+        };
+        var lang = kintone.getLoginUser().language;
+        var i18n = (lang in terms) ? terms[lang]:terms['ja'];
+        var configHtml = $('#kintone-colorful-plugin').html();
+        var tmpl = $.templates(configHtml);
+        $('div#kintone-colorful-plugin').html(tmpl.render({'terms':i18n}));
+
         var kFields = [];
         var viewNum = 0;
         // set plug-in ID.
